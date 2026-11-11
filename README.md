@@ -1,58 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Blockbuster
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+El sistema de un videoclub, escrito entre todos en Laravel 13. Proyecto del ramo Programación Avanzada (PRV001).
 
-## About Laravel
+Material de apoyo: [Construyendo un Blockbuster](https://hlp.noquierouser.com/ramos/programacion-avanzada/construyendo-un-blockbuster/).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Qué hay hasta ahora
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Modelo | Tabla | Qué guarda | Relaciones |
+|---|---|---|---|
+| `Genero` | `generos` | Nombre y descripción de un género | Tiene muchas películas: `peliculas()` |
+| `Pelicula` | `peliculas` | Título, año, director, reparto, duración y sinopsis | Pertenece a un género: `genero()` |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Los dos modelos usan borrado suave (`SoftDeletes`): al eliminar una fila no se borra, solo queda marcada con la fecha en `deleted_at`.
 
-## Learning Laravel
+## Hacerlo funcionar después de clonar
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Necesitas el [entorno instalado](https://hlp.noquierouser.com/ramos/programacion-avanzada/construyendo-un-blockbuster/entorno-fedora/): Lerd, PHP 8.5, Composer y Git.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 1. Clonar
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd ~/Proyectos
+git clone git@github.com:prv-cftohiggins/blockbuster.git blockbuster-grupo
+cd blockbuster-grupo
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+El último argumento es el nombre de la carpeta. Como queda dentro de `~/Proyectos`, Lerd lo publica en `http://blockbuster-grupo.test`.
 
-## Contributing
+### 2. Preparar el proyecto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Un proyecto recién clonado no funciona: le falta todo lo que no se sube a GitHub. Con Lerd es un comando:
 
-## Code of Conduct
+```bash
+lerd setup
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+O a mano, que es lo mismo paso por paso:
 
-## Security Vulnerabilities
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Si `migrate` pregunta si quieres crear la base de datos SQLite, responde que sí.
 
-## License
+### 3. Cargar los datos de prueba
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan db:seed
+```
+
+Carga 8 géneros y 16 películas. Se puede ejecutar varias veces: no duplica filas.
+
+Para partir de cero (borra todas las tablas, las crea de nuevo y carga los datos):
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 4. Comprobar
+
+- `http://blockbuster-grupo.test` muestra la página de bienvenida.
+- `http://blockbuster-grupo.test/peliculas` muestra el catálogo en JSON.
+
+Y desde la terminal, con `php artisan tinker`:
+
+```php
+App\Models\Pelicula::count();                          // 16
+App\Models\Pelicula::with('genero')->first();          // una película con su género
+App\Models\Genero::where('nombre', 'Terror')->first()->peliculas;  // las películas de un género
+```
+
+Se sale con `exit`.
+
+## Cuando traes cambios de otra persona
+
+Después de un `git pull`, si alguien agregó una biblioteca, una migración o un seeder:
+
+```bash
+composer install
+php artisan migrate
+php artisan db:seed
+```
+
+## Cómo trabajamos
+
+- Nadie sube directo a `main`. Cada cambio va en su propia rama y entra por un pull request.
+- Los pull requests los revisa y fusiona la PM del proyecto, que también resuelve los conflictos. Si pide cambios, se corrigen en la misma rama.
+- Los nombres del dominio van en español y sin tildes ni eñes en el código: `Pelicula`, `anio`, `Genero`.
+- Un modelo nuevo llega completo: migración, modelo, seeder con datos y su registro en `DatabaseSeeder`.
+
+## Agregar un modelo: la receta
+
+```bash
+php artisan make:model Copia --migration --seed
+```
+
+Ese comando crea tres archivos: `app/Models/Copia.php`, una migración en `database/migrations/` y `database/seeders/CopiaSeeder.php`. Después:
+
+1. **Migración:** define las columnas de la tabla.
+2. **Modelo:** `$fillable`, las relaciones y `SoftDeletes`, igual que `Pelicula`.
+3. **Relación inversa:** si tu modelo pertenece a otro, agrégale al otro el método que lo trae de vuelta.
+4. **Seeder:** datos de prueba con `updateOrCreate`, como `PeliculaSeeder`.
+5. **`DatabaseSeeder`:** agrega tu seeder a la lista, después de los que necesita.
+6. **Prueba:** `php artisan migrate:fresh --seed` y revisa en `tinker`.

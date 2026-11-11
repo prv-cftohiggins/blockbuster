@@ -20,6 +20,14 @@ class Pelicula extends Model
         'sinopsis',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'anio' => 'integer',
+            'duracion' => 'integer',
+        ];
+    }
+
     public function genero(): BelongsTo
     {
         return $this->belongsTo(Genero::class);
