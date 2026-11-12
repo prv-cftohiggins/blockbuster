@@ -18,6 +18,7 @@ class Pelicula extends Model
         'genero_id',
         'duracion',
         'sinopsis',
+        'clasificacion_id',
     ];
 
     protected function casts(): array
@@ -31,5 +32,10 @@ class Pelicula extends Model
     public function genero(): BelongsTo
     {
         return $this->belongsTo(Genero::class);
+    }
+
+    public function clasificacion(): BelongsTo
+    {
+        return $this->belongsTo(Clasificacion::class, 'clasificacion_id');
     }
 }
