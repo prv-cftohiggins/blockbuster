@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
             GeneroSeeder::class,
             PeliculaSeeder::class,
         ]);
+        $this->call(ClasificacionSeeder::class);
     }
 }
