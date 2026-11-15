@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             GeneroSeeder::class,
             PeliculaSeeder::class,
+            SocioSeeder::class,
             CopiaSeeder::class,
         ]);
     }
