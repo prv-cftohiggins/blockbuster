@@ -32,4 +32,12 @@ class Pelicula extends Model
     {
         return $this->belongsTo(Genero::class);
     }
+
+    /**
+     * Una película tiene muchas copias físicas.
+     */
+    public function copias(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Copia::class, 'pelicula_id');
+    }
 }
