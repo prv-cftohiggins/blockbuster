@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             GeneroSeeder::class,
             PeliculaSeeder::class,
             SocioSeeder::class,
+            CopiaSeeder::class,
+            ClasificacionSeeder::class,
         ]);
-        $this->call(ClasificacionSeeder::class);
     }
 }
