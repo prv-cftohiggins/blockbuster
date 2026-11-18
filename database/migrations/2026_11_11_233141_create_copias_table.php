@@ -11,8 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        public function up(): void
-    {
         Schema::create('copias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pelicula_id')->constrained('peliculas')->cascadeOnDelete();
@@ -21,7 +19,6 @@ return new class extends Migration
             $table->string('estado')->default('disponible'); // disponible, arrendada, danada o baja
             $table->timestamps();
         });
-    }
     }
 
     /**
