@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             PeliculaSeeder::class,
             SocioSeeder::class,
             CopiaSeeder::class,
+            ClasificacionSeeder::class,
         ]);
     }
 }

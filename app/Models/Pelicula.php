@@ -18,6 +18,7 @@ class Pelicula extends Model
         'genero_id',
         'duracion',
         'sinopsis',
+        'clasificacion_id',
     ];
 
     protected function casts(): array
@@ -39,5 +40,13 @@ class Pelicula extends Model
     public function copias(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Copia::class, 'pelicula_id');
+    }
+  
+    /**
+    * Una película tiene una clasificación.
+    */
+    public function clasificacion(): BelongsTo
+    {
+        return $this->belongsTo(Clasificacion::class, 'clasificacion_id');
     }
 }
