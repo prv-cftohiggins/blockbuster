@@ -9,5 +9,5 @@ Route::get('/', function () {
 
 // El catálogo en JSON, para comprobar a simple vista que hay datos.
 Route::get('/peliculas', function () {
-    return Pelicula::with('genero')->orderBy('titulo')->get();
+    return Pelicula::with(['genero', 'clasificacion', 'copias'])->orderBy('titulo')->get();
 });
