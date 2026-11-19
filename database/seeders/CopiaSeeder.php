@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Copia;
+use App\Models\Pelicula;
 use Illuminate\Database\Seeder;
 
 class CopiaSeeder extends Seeder
