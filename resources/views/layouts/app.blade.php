@@ -14,6 +14,7 @@
             </ul>
             <ul>
                 <li><a href="{{ route('generos.index') }}">Géneros</a></li>
+                <li><a href="{{ route('peliculas.index') }}">Películas</a></li>
             </ul>
         </nav>
     </header>
