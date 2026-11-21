@@ -15,7 +15,7 @@
         <tbody>
             @forelse ($socios as $socio)
                 <tr>
-                    <td>{{ $socio->nombre }}</td>
+                    <td><a href="{{ route('socios.show', $socio) }}">{{ $socio->nombre }}</a></td>
                     <td>{{ $socio->rut }}</td>
                     <td>{{ $socio->edad() }} años</td>
                     <td>

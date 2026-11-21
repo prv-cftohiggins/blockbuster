@@ -14,3 +14,4 @@ Route::get('/peliculas', function () {
 });
 
 Route::get('/socios', [SocioController::class, 'index'])->name('socios.index');
+Route::get('/socios/{socio}', [SocioController::class, 'show'])->name('socios.show');

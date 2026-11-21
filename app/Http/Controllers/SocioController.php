@@ -14,4 +14,11 @@ class SocioController extends Controller
 
         return view('socios.index', ['socios' => $socios]);
     }
+
+    // Muestra todos los datos de un socio. Laravel busca el socio por su id
+    // (enlace de modelos) y responde 404 si no existe.
+    public function show(Socio $socio): View
+    {
+        return view('socios.show', ['socio' => $socio]);
+    }
 }
