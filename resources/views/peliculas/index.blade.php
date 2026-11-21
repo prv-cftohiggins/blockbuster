@@ -18,7 +18,7 @@
                 <tr>
                     <td>{{ $pelicula->titulo }}</td>
                     <td>{{ $pelicula->anio }}</td>
-                    <td>{{ $pelicula->genero->nombre }}</td>
+                    <td>{{ $pelicula->genero?->nombre ?? 'Sin género' }}</td>
                     <td>{{ $pelicula->clasificacion?->codigo ?? 'Sin clasificar' }}</td>
                     <td>{{ $pelicula->duracion }} min</td>
                 </tr>
