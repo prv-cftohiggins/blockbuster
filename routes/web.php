@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\CopiaController;
 use App\Models\Pelicula;
 use App\Models\Socio;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,5 @@ Route::get('/peliculas', function () {
 Route::get('/socios', function () {
     return Socio::orderBy('nombre')->get();
 });
+
+Route::get('/copias', [CopiaController::class, 'index'])->name('copias.index');
