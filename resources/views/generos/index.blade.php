@@ -14,7 +14,7 @@
         <tbody>
             @forelse ($generos as $genero)
                 <tr>
-                    <td>{{ $genero->nombre }}</td>
+                    <td><a href="{{ route('generos.show', $genero) }}">{{ $genero->nombre }}</a></td>
                     <td>{{ $genero->descripcion }}</td>
                     <td>{{ $genero->peliculas_count }}</td>
                 </tr>

@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/generos', [GeneroController::class, 'index'])->name('generos.index');
+Route::get('/generos/{genero}', [GeneroController::class, 'show'])->name('generos.show');
 
 // El catálogo en JSON, para comprobar a simple vista que hay datos.
 Route::get('/peliculas', function () {

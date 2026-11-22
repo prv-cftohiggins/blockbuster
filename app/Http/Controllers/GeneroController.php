@@ -16,4 +16,17 @@ class GeneroController extends Controller
 
         return view('generos.index', ['generos' => $generos]);
     }
+
+    /**
+     * Un género con sus películas, ordenadas por título.
+     * Laravel busca el género por su id (enlace de modelos) y responde 404 si no existe.
+     */
+    public function show(Genero $genero): View
+    {
+        $genero->load([
+            'peliculas' => fn ($consulta) => $consulta->with('clasificacion')->orderBy('titulo'),
+        ]);
+
+        return view('generos.show', ['genero' => $genero]);
+    }
 }
