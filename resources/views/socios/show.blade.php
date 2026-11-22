@@ -25,6 +25,8 @@
                 <mark>Suspendido</mark>
             @endif
         </dd>
+        <dt>Socio desde</dt>
+        <dd>{{ $socio->created_at->format('d/m/Y') }}</dd>
     </dl>
 
     <p><a href="{{ route('socios.index') }}">← Volver a socios</a></p>
