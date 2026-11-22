@@ -36,6 +36,7 @@ class Socio extends Model
     {
         return $this->fecha_nacimiento->age;
     }
+
     // RUT con puntos de miles, formato chileno: 12.345.678-5
     public function rutFormateado(): string
     {
@@ -43,6 +44,4 @@ class Socio extends Model
 
         return number_format((int) $numero, 0, ',', '.') . '-' . $dv;
     }
-
-
 }
