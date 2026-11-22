@@ -14,6 +14,7 @@
             </ul>
             <ul>
                 <li><a href="{{ route('generos.index') }}">Géneros</a></li>
+                <li><a href="{{ route('socios.index') }}">Socios</a></li>
             </ul>
         </nav>
     </header>
