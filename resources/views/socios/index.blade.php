@@ -16,7 +16,7 @@
             @forelse ($socios as $socio)
                 <tr>
                     <td>{{ $socio->nombre }}</td>
-                    <td>{{ $socio->rut }}</td>
+                    <td>{{ $socio->rutFormateado() }}</td>
                     <td>{{ $socio->edad() }} años</td>
                     <td>
                         {{-- <mark> resalta a los suspendidos para que se vean a simple vista. --}}
