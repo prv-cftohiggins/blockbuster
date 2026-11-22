@@ -40,6 +40,11 @@ class Socio extends Model
     // RUT con puntos de miles, formato chileno: 12.345.678-5
     public function rutFormateado(): string
     {
+        // Si el RUT no trae guion, se muestra tal cual en vez de botar la página.
+        if (! str_contains($this->rut, '-')) {
+            return $this->rut;
+        }
+
         [$numero, $dv] = explode('-', $this->rut);
 
         return number_format((int) $numero, 0, ',', '.') . '-' . $dv;
