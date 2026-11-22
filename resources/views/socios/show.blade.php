@@ -5,7 +5,7 @@
 @section('contenido')
     <dl>
         <dt>RUT</dt>
-        <dd>{{ $socio->rut }}</dd>
+        <dd>{{ $socio->rutFormateado() }}</dd>
 
         <dt>Email</dt>
         <dd>{{ $socio->email }}</dd>
