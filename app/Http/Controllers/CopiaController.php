@@ -24,13 +24,8 @@ class CopiaController extends Controller
         return view('copias.index', [
             'copias' => $copias,
             'peliculas' => Pelicula::orderBy('titulo')->get(['id', 'titulo']),
-            'formatos' => ['VHS', 'DVD', 'Blu-ray'],
-            'estados' => [
-                'disponible' => 'Disponible',
-                'arrendada' => 'Arrendada',
-                'danada' => 'Dañada',
-                'baja' => 'De baja',
-            ],
+            'formatos' => Copia::FORMATOS,
+            'estados' => Copia::ESTADOS,
             'filtros' => $request->only(['pelicula', 'formato', 'estado']),
         ]);
     }

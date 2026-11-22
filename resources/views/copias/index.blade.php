@@ -40,6 +40,8 @@
         <a href="{{ route('copias.index') }}">Quitar filtros</a>
     </form>
 
+    <p>{{ $copias->count() }} {{ $copias->count() === 1 ? 'copia encontrada' : 'copias encontradas' }}</p>
+
     <table>
         <thead>
             <tr>
