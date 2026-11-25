@@ -16,3 +16,4 @@ Route::get('/socios', function () {
 });
 
 Route::get('/peliculas', [PeliculaController::class, 'index'])->name('peliculas.index');
+Route::get('/peliculas/{pelicula}', [PeliculaController::class, 'show'])->name('peliculas.show');

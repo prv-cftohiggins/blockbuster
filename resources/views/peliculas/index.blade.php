@@ -16,7 +16,7 @@
         <tbody>
             @forelse ($peliculas as $pelicula)
                 <tr>
-                    <td>{{ $pelicula->titulo }}</td>
+                    <td><a href="{{ route('peliculas.show', $pelicula) }}">{{ $pelicula->titulo }}</a></td>
                     <td>{{ $pelicula->anio }}</td>
                     <td>{{ $pelicula->genero?->nombre ?? 'Sin género' }}</td>
                     <td>{{ $pelicula->clasificacion?->codigo ?? 'Sin clasificar' }}</td>
