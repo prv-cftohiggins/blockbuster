@@ -5,6 +5,8 @@
 @section('contenido')
     <p>{{ $genero->descripcion }}</p>
 
+    <p>{{ $genero->peliculas->count() }} {{ $genero->peliculas->count() === 1 ? 'película' : 'películas' }} en este género.</p>
+
     <table>
         <thead>
             <tr>
