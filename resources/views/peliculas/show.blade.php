@@ -33,8 +33,14 @@
 
         <dt>Copias</dt>
         <dd>
-            {{ $pelicula->copias_count }} en total, {{ $pelicula->copias_disponibles_count }} disponibles.
-            <a href="{{ url('/copias?pelicula=' . $pelicula->id) }}">Ver sus copias</a>
+            @if ($pelicula->copias_count === 0)
+                Sin copias.
+            @else
+                {{-- Singular o plural según la cantidad: "1 disponible", "2 disponibles". --}}
+                {{ $pelicula->copias_count }} en total,
+                {{ $pelicula->copias_disponibles_count }} {{ $pelicula->copias_disponibles_count === 1 ? 'disponible' : 'disponibles' }}.
+                <a href="{{ url('/copias?pelicula=' . $pelicula->id) }}">Ver sus copias</a>
+            @endif
         </dd>
     </dl>
 
